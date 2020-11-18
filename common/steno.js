@@ -94,11 +94,7 @@ async function decode (inFile) {
   }
 }
 
-async function go () {
-  console.log('encoding')
-  await encode('lazybaer', `${__dirname}/bear03.png`, `${__dirname}/newBaer.png`)
-  console.log('decoding')
-  await decode(`${__dirname}/newBaer.png`)
+module.exports = {
+  decode,
+  encode
 }
-
-go()
