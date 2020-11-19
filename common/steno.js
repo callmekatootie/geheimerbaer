@@ -33,7 +33,7 @@ async function encode (msg, inFile, outFile) {
         const b = c & ONE_BIT // CWD-- get bit
         c = c >> 1 // CWD-- shift bits right to catch next bit
         // console.log(b)
-        dataMap.push(b) // CWD-- add bit to data map 
+        dataMap.push(b) // CWD-- add bit to data map
       }
     }
 
@@ -44,7 +44,7 @@ async function encode (msg, inFile, outFile) {
       console.log(`mapped ${i}: ${imgData[i]}`)
     }
 
-    await image.writeAsync(outFile, imgData) // CWD-- write out 
+    await image.writeAsync(outFile, imgData) // CWD-- write out
   } catch (e) {
     console.log(e)
   }
@@ -85,7 +85,6 @@ async function decode (inFile) {
       if (eomCount > 1) {
         break
       }
-
     }
 
     console.log(msg)
