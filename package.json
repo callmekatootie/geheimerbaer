@@ -1,6 +1,6 @@
 {
-  "name": "nacltest",
-  "version": "0.0.0",
+  "name": "geheimerbaer",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -11,8 +11,11 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-fileupload": "^1.2.0",
+    "filename-changer": "^1.0.0",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
+    "jimp": "^0.16.1",
     "morgan": "~1.9.1",
     "tweetnacl": "^1.0.3",
     "tweetnacl-util": "^0.15.1"

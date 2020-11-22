@@ -3,6 +3,68 @@
   <head>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script type="application/javascript">
+$.when(document).then(()=>{
+  $( "#generateKey" ).on( "click", (event)=>{
+    $.getJSON( "/random-key", function( data ) {
+      console.log(data)
+      $('#key').val(data.randomKey)
+    })
+    return false
+  } )
+
+  $( "#generateNonce" ).on( "click", (event)=>{
+    $.getJSON( "/nonce", function( data ) {
+      console.log(data)
+      $('#nonce').val(data.nonce)
+    })
+    return false
+  } )
+
+
+  $("#encodingForm").on('submit', (event) => {
+    event.preventDefault()
+    $('#outputImg').attr('src', '/images/spinner-icon-gif-24.gif')
+    const form = $('#encodingForm')[0]
+
+    const data = new FormData(form)
+    $.ajax({   
+      type: 'POST', 
+      enctype: 'multipart/form-data',
+      contentType: false,
+      cache: false,
+      processData: false,
+      url: $("#encodingForm").attr('action'),   
+      data: data,
+      success: (data) => {
+        console.log('great success')
+         $('#outputImg').attr('src', 'data:image/png;base64, ' + data)
+      },
+      error: (err) => {
+        $('#outputImg').attr('src', '')
+        console.log('all is lost')
+        console.log(err)
+        $('#errMsg').text = err 
+      },
+      complete: (data) => {
+        console.log('done')
+      }
+    })
+
+    return false
+  })
+
+  $( "#download" ).on( "click", (event)=>{
+    $.getJSON( "/random-key", function( data ) {
+      console.log(data)
+      $('#key').val(data.randomKey)
+    })
+    return false
+  } )
+
+})
+    </script>
   </head>
   <body>
     {{{body}}}

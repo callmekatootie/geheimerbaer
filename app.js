@@ -2,6 +2,7 @@ const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
+const fileUpload = require('express-fileupload');
 const logger = require('morgan')
 
 const indexRouter = require('./routes/index')
@@ -16,6 +17,14 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(fileUpload({
+  safeFileNames: true,
+  preserveExtension: true,
+  useTempFiles: true,
+//  tempFileDir: path.join(__dirname, 'imgTemp'),
+  createParentPath: true,
+  debug: true
+}))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)

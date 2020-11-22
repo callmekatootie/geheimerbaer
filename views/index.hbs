@@ -1,2 +1,42 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<div id="formDiv">
+  <form name="encodingForm" id="encodingForm" method="POST" encType="multipart/form-data" action="/encode" > <!-- onsubmit="() => { return false }" -->
+    <fieldset >
+      <div class="formRow">
+        <div><label for="key">key: </label></div>
+        <div>
+          <input type="text" name="key" id="key"/> 
+          <button name="generateKey" id="generateKey">generate key</button>
+        </div>
+      </div>
+      <div class="formRow">
+        <div><label for="nonce">nonce: </label></div>
+        <div>
+          <input type="text" name="nonce" id="nonce"/> 
+          <button name="generateNonce" id="generateNonce">generate nonce</button>
+        </div>
+      </div>
+      <div class="formRow">
+        <div><label for="msg">msg: </label></div>
+        <div><textarea name="msg" id="msg"></textarea></div>
+      </div>
+      <div class="formRow">
+        <div><label for="">image to encode:</label></div>
+        <div><input type="file" name="imagefile" id="imagefile"/></div>
+      </div>    
+      <div class="formRow">
+        <input type="hidden" name="encodeBase64" id="encodeBase64" value="true" />
+        <button name="submit" id="submit">submit</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div id="imgDiv">
+  <div id="errMsg"></div>
+  <div>
+    <img name="outputImg" id="outputImg" />
+    <button id="download" name="download" style="display: none;">download</button>
+  </div>
+</div>
