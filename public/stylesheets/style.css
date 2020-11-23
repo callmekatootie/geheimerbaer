@@ -40,3 +40,17 @@ div.formRow {
   float: left;
   border: 1px black solid;
 }
+
+.navItem {
+  float: left;
+  height: 20px;
+  margin: 2px 10px;
+}
+
+#pageBody {
+  float: none;
+}
+
+.clearfix {
+  overflow: auto;
+}

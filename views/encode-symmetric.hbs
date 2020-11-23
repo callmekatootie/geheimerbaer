@@ -1,0 +1,100 @@
+
+
+<div id="formDiv">
+  <form name="encodingForm" id="encodingForm" method="POST" encType="multipart/form-data" action="/api/encode" > <!-- onsubmit="() => { return false }" -->
+    <fieldset >
+      <div class="formRow">
+        <div><label for="key">key: </label></div>
+        <div>
+          <input type="text" name="key" id="key"/> 
+          <button name="generateKey" id="generateKey">generate key</button>
+        </div>
+      </div>
+      <div class="formRow">
+        <div><label for="nonce">nonce: </label></div>
+        <div>
+          <input type="text" name="nonce" id="nonce"/> 
+          <button name="generateNonce" id="generateNonce">generate nonce</button>
+        </div>
+      </div>
+      <div class="formRow">
+        <div><label for="msg">msg: </label></div>
+        <div><textarea name="msg" id="msg"></textarea></div>
+      </div>
+      <div class="formRow">
+        <div><label for="">image to encode:</label></div>
+        <div><input type="file" name="imagefile" id="imagefile"/></div>
+      </div>    
+      <div class="formRow">
+        <input type="hidden" name="encodeBase64" id="encodeBase64" value="true" />
+        <button name="submit" id="submit">submit</button>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div id="imgDiv">
+  <div id="errMsg"></div>
+  <div>
+    <img name="outputImg" id="outputImg" />
+  </div>
+</div>
+
+   <script type="application/javascript">
+
+$.when(document).then(()=>{
+  function encode(encodeBase64, success) {
+    $('#outputImg').attr('src', '/images/spinner-icon-gif-24.gif')
+    $('#encodeBase64').val(encodeBase64?'true':'false')
+    const form = $('#encodingForm')[0]
+
+    const data = new FormData(form)
+    $.ajax({   
+      type: 'POST', 
+      enctype: 'multipart/form-data',
+      contentType: false,
+      cache: false,
+      processData: false,
+      url: $("#encodingForm").attr('action'),   
+      data: data,
+      success: success,
+      error: (err) => {
+        $('#outputImg').attr('src', '')
+        console.log('all is lost')
+        console.log(err)
+        $('#errMsg').text = err 
+      },
+      complete: (data) => {
+        console.log('done')
+      }
+    })
+  }
+
+  $( "#generateKey" ).on( "click", (event)=>{
+    $.getJSON( "/api/random-key", function( data ) {
+      console.log(data)
+      $('#key').val(data.randomKey)
+    })
+    return false
+  } )
+
+  $( "#generateNonce" ).on( "click", (event)=>{
+    $.getJSON( "/api/nonce", function( data ) {
+      console.log(data)
+      $('#nonce').val(data.nonce)
+    })
+    return false
+  } )
+
+  $("#encodingForm").on('submit', (event) => {
+    event.preventDefault()
+    encode(true, (data) => {
+        console.log('great success')
+        $('#outputImg').attr('src', 'data:image/png;base64, ' + data)
+        $('#download').show()
+      })
+
+    return false
+  })
+
+})
+    </script>
