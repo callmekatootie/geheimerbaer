@@ -34,20 +34,29 @@ router.post('/encode', async (req, res) => {
       }
 
       const secretMsg = nacl.encodeWithKey(req.body.key, req.body.nonce, req.body.msg)
-      await steno.encode(req.msg, inFile, outFile)
+
+      try {
+        await steno.encode(secretMsg, inFile, outFile) // CWD-- secretMsg goes here req.body.msg
+      } catch (err) {
+        console.log(`Message: ${err}`)
+        res.status(500).json({ err: err.toString() })
+        return
+      }
 
       if (req.body.encodeBase64 && (req.body.encodeBase64 === 'true')) {
         console.log('encoding for base64')
         fs.readFile(outFile).then((data) => {
+          const dataBase64 = data.toString('base64')
           res.writeHead(200, {
-            'Content-Type': `image/${fnc(outFile, '{ext')}`,
-            'Content-Length': data.length
+            'Content-Type': `image/${fnc(outFile, '{ext}')}`,
+            'Content-Length': dataBase64.length
           })
 
-          res.end(data.toString('base64'))
+          res.end(dataBase64)
           console.log('sent')
         }).catch((err) => {
-          res.status(500).json(err)
+          console.log(err)
+          res.status(500).json({ err })
         })
       } else {
         console.log('sending file')
@@ -60,8 +69,27 @@ router.post('/encode', async (req, res) => {
   }
 })
 
-router.post('/decode', function (req, res, next) {
-  res.render('index', { title: 'Express' })
-})
+router.post('/decode', async (req, res, next) => {
+  console.log(req.body)
+
+  if (req.files) {
+    const inFile = path.join(__dirname, '/../imgTemp/', req.files.imagefile.name)
+
+    console.log(`inFile: ${inFile}`)
+
+    req.files.imagefile.mv(inFile, async (err) => {
+      if (err) {
+        console.log(err)
+        res.status(500).json(err)
+      }
+
+      const encMessage = await steno.decode(inFile)
+      const message = nacl.decodeWithKey(req.body.key, req.body.nonce, encMessage)
+
+      res.json({ message })
+    })
+  } else {
+    res.status(500).json({ err: 'no file' })
+  }})
 
 module.exports = router

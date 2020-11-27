@@ -22,7 +22,7 @@ div.formRow {
 }
 */
 
-#key, #nonce, #msg {
+.inputBoxes {
   width: 400px;
   margin: 10px;
   padding: 0;
