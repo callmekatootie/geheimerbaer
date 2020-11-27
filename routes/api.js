@@ -58,10 +58,24 @@ router.post('/encode', async (req, res) => {
           console.log(err)
           res.status(500).json({ err })
         })
+
+        try {
+          await fs.unlink(inFile)
+          await fs.unlink(outFile)
+        } catch (err) {
+          console.log(err)
+        }
       } else {
         console.log('sending file')
         // res.setHeader('Content-Type', 'application/download')
         res.sendFile(outFile)
+
+        try {
+          await fs.unlink(inFile)
+          await fs.unlink(outFile)
+        } catch (err) {
+          console.log(err)
+        }
       }
     })
   } else {
@@ -85,6 +99,12 @@ router.post('/decode', async (req, res, next) => {
 
       const encMessage = await steno.decode(inFile)
       const message = nacl.decodeWithKey(req.body.key, req.body.nonce, encMessage)
+
+      try {
+        await fs.unlink(inFile)
+      } catch (err) {
+        console.log(err)
+      }
 
       res.json({ message })
     })
