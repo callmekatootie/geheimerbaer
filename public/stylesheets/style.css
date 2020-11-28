@@ -54,3 +54,7 @@ div.formRow {
 .clearfix {
   overflow: auto;
 }
+
+#outputImg {
+  max-width: 100%;
+}
