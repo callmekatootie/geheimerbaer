@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "postinstall": "cd client && npm install && npm run build && cd ..",
+    "heroku-postbuild": "cd client && ./build.sh",
     "dev": "concurrently \"cd client && npm run serve\" \"npm start\""
   },
   "dependencies": {
