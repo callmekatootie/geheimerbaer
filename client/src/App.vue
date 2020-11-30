@@ -13,6 +13,16 @@
       </div>
       <div class="navItem">
         <span>
+          <router-link to="/encode-asymmetric">Encode Asymmetric</router-link>
+        </span>
+      </div>
+      <div class="navItem">
+        <span>
+          <router-link to="/decode-asymmetric">Decode Asymmetric</router-link>
+        </span>
+      </div>
+      <div class="navItem">
+        <span>
           <router-link to="/generate-keypairs">Generate Keypairs</router-link>
         </span>
       </div>

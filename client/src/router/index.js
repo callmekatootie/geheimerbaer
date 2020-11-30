@@ -24,6 +24,22 @@ const routes = [
       )
   },
   {
+    path: "/encode-asymmetric",
+    name: "EncodeAsymmetric",
+    component: () =>
+      import(
+        /* webpackChunkName: "encode-asymmetric" */ "../views/EncodeAsymmetric.vue"
+      )
+  },
+  {
+    path: "/decode-asymmetric",
+    name: "DecodeAsymmetric",
+    component: () =>
+      import(
+        /* webpackChunkName: "decode-asymmetric" */ "../views/DecodeAsymmetric.vue"
+      )
+  },
+  {
     path: "/generate-keypairs",
     name: "GenerateKeyPairs",
     component: () =>
