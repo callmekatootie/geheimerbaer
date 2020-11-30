@@ -99,7 +99,7 @@ async function decode (inFile) {
         console.log('First EOM found')
         ++eomCount
       } else {
-//        console.log(`counted out ${CHAR_BIT_LENGTH} bits. Adding char to string: ${c}/${String.fromCharCode(c)}`)
+      // console.log(`counted out ${CHAR_BIT_LENGTH} bits. Adding char to string: ${c}/${String.fromCharCode(c)}`)
         msg += String.fromCharCode(c)
       }
 

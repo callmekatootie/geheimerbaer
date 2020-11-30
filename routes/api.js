@@ -8,11 +8,11 @@ const fnc = require('filename-changer')
 const router = express.Router()
 
 router.get('/nonce', function (req, res, next) {
-  res.json({ nonce: nacl.generateNonce()})
+  res.json({ nonce: nacl.generateNonce() })
 })
 
 router.get('/random-key', function (req, res, next) {
-  res.json({ randomKey: nacl.generateRandomKey()})
+  res.json({ randomKey: nacl.generateRandomKey() })
 })
 
 router.get('/keypair', function (req, res, next) {
@@ -33,7 +33,13 @@ router.post('/encode', async (req, res) => {
         res.status(500).json(err)
       }
 
-      const secretMsg = nacl.encodeWithKey(req.body.key, req.body.nonce, req.body.msg)
+      let secretMsg = req.body.msg
+
+      if (req.body.key) {
+        secretMsg = nacl.encodeWithKey(req.body.key, req.body.nonce, req.body.msg)
+      } else {
+        secretMsg = nacl.encodeWithKeys(req.body.pubKey, req.body.priKey, req.body.nonce, req.body.msg)
+      }
 
       try {
         await steno.encode(secretMsg, inFile, outFile) // CWD-- secretMsg goes here req.body.msg
@@ -110,6 +116,6 @@ router.post('/decode', async (req, res, next) => {
     })
   } else {
     res.status(500).json({ err: 'no file' })
-  }})
+  } })
 
 module.exports = router
