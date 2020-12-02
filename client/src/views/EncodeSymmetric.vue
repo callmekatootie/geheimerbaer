@@ -37,6 +37,7 @@
                     class="input"
                     v-model="key"
                     placeholder="Enter or generate key"
+                    tabindex="1"
                   />
                 </div>
                 <p class="control">
@@ -78,6 +79,7 @@
                     class="input"
                     v-model="nonce"
                     placeholder="Enter or generate nonce"
+                    tabindex="2"
                   />
                 </div>
                 <p class="control">
@@ -106,6 +108,7 @@
                     class="textarea has-fixed-size"
                     v-model="msg"
                     placeholder="Enter the message to encode"
+                    tabindex="3"
                   />
                 </div>
               </div>
@@ -123,6 +126,7 @@
                     accept="image/png"
                     @change="setFile"
                     class="file-input"
+                    tabindex="4"
                   />
                   <span class="file-cta">
                     <span class="file-icon">
@@ -133,7 +137,7 @@
                         height="16"
                       />
                     </span>
-                    <span class="file-label">Upload an image</span>
+                    <span class="file-label">Image to encode</span>
                   </span>
                   <span class="file-name" v-if="file">{{ file.name }}</span>
                 </label>
@@ -171,17 +175,21 @@
           </div>
           <div class="message-body">{{ errMsg }}</div>
         </article>
-        <progress class="progress" max="100" v-if="isEncoding"></progress>
-        <div class="box" v-if="encodedImage.length">
-          <figure class="image">
-            <img
-              name="outputImg"
-              id="outputImg"
-              :src="encodedImage"
-              alt="encoded image"
-            />
-          </figure>
-        </div>
+        <article class="message is-info" v-if="encodedImage.length">
+          <div class="message-header">
+            <p>Your encoded image</p>
+          </div>
+          <div class="message-body">
+            <figure class="image">
+              <img
+                name="outputImg"
+                id="outputImg"
+                :src="encodedImage"
+                alt="encoded image"
+              />
+            </figure>
+          </div>
+        </article>
       </div>
     </div>
   </div>

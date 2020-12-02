@@ -83,7 +83,7 @@
                   <input
                     type="submit"
                     value="Generate keys"
-                    class="button is-warning"
+                    class="button is-primary"
                   />
                 </div>
               </div>

@@ -25,6 +25,7 @@
                     class="input"
                     v-model="key"
                     placeholder="Enter the key"
+                    tabindex="1"
                   />
                 </div>
               </div>
@@ -44,6 +45,7 @@
                     class="input"
                     v-model="nonce"
                     placeholder="Enter the nonce"
+                    tabindex="2"
                   />
                 </div>
               </div>
@@ -61,6 +63,7 @@
                     accept="image/png"
                     @change="setFile"
                     class="file-input"
+                    tabindex="3"
                   />
                   <span class="file-cta">
                     <span class="file-icon">
@@ -103,7 +106,6 @@
           </div>
           <div class="message-body">{{ errMsg }}</div>
         </article>
-        <progress class="progress" max="100" v-if="isDecoding"></progress>
         <article class="message is-info" v-if="msg.length">
           <div class="message-header">
             <p>Your decoded message</p>
