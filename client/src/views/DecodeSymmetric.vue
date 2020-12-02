@@ -1,64 +1,115 @@
 <template>
-  <div id="pageBody" class="clearfix">
-    <div id="formDiv">
-      <form encType="multipart/form-data" @submit.prevent="decode">
-        <fieldset>
-          <div class="formRow">
-            <div><label for="key">key: </label></div>
-            <div>
-              <input
-                type="text"
-                name="key"
-                id="key"
-                class="inputBoxes"
-                v-model="key"
-              />
-            </div>
-          </div>
-          <div class="formRow">
-            <div><label for="nonce">nonce: </label></div>
-            <div>
-              <input
-                type="text"
-                name="nonce"
-                id="nonce"
-                class="inputBoxes"
-                v-model="nonce"
-              />
-            </div>
-          </div>
-          <div class="formRow">
-            <div><label for="">image to decode:</label></div>
-            <div>
-              <input
-                type="file"
-                name="imagefile"
-                id="imagefile"
-                accept="image/png"
-                @change="setFile"
-              />
-            </div>
-          </div>
-          <div class="formRow">
-            <input type="submit" value="submit" />
-          </div>
-        </fieldset>
-      </form>
+  <div class="container">
+    <div class="columns">
+      <div class="column"></div>
     </div>
-    <div id="imgDiv">
-      <div id="errMsg" v-if="errMsg.length">{{ errMsg }}</div>
-      <div>
-        <div class="formRow">
-          <div><label for="msg">msg: </label></div>
-          <div>
-            <textarea
-              name="msg"
-              id="msg"
-              class="inputBoxes"
-              v-model="msg"
-            ></textarea>
+    <div class="columns">
+      <div class="column">
+        <h3 class="title">Decode Symmetric</h3>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-half">
+        <form encType="multipart/form-data" @submit.prevent="decode">
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label for="key" class="label">Key</label>
+            </div>
+            <div class="field-body">
+              <div class="field has-addons">
+                <div class="control is-expanded">
+                  <input
+                    type="text"
+                    name="key"
+                    id="key"
+                    class="input"
+                    v-model="key"
+                    placeholder="Enter the key"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label for="nonce" class="label">Nonce</label>
+            </div>
+            <div class="field-body">
+              <div class="field has-addons">
+                <div class="control is-expanded">
+                  <input
+                    type="text"
+                    name="nonce"
+                    id="nonce"
+                    class="input"
+                    v-model="nonce"
+                    placeholder="Enter the nonce"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field is-horizontal">
+            <div class="field-label"></div>
+            <div class="field-body">
+              <div class="file has-name">
+                <label class="file-label">
+                  <input
+                    type="file"
+                    name="imagefile"
+                    id="imagefile"
+                    accept="image/png"
+                    @change="setFile"
+                    class="file-input"
+                  />
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <img
+                        src="@/assets/images/icons/upload.svg"
+                        alt="upload file"
+                        width="16"
+                        height="16"
+                      />
+                    </span>
+                    <span class="file-label">Image to decode</span>
+                  </span>
+                  <span class="file-name" v-if="file">{{ file.name }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="field is-horizontal">
+            <div class="field-label"></div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <button
+                    type="submit"
+                    class="button is-primary"
+                    :class="{ 'is-loading': isDecoding }"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="column is-half">
+        <article class="message is-danger" v-if="errMsg.length">
+          <div class="message-header">
+            <p>Error</p>
+          </div>
+          <div class="message-body">{{ errMsg }}</div>
+        </article>
+        <progress class="progress" max="100" v-if="isDecoding"></progress>
+        <article class="message is-info" v-if="msg.length">
+          <div class="message-header">
+            <p>Your decoded message</p>
+          </div>
+          <div class="message-body">{{ msg }}</div>
+        </article>
       </div>
     </div>
   </div>
@@ -75,7 +126,8 @@ export default {
       nonce: "",
       msg: "",
       file: "",
-      errMsg: ""
+      errMsg: "",
+      isDecoding: false
     };
   },
   methods: {
@@ -102,6 +154,7 @@ export default {
 
       this.msg = "";
       this.errMsg = "";
+      this.isDecoding = true;
 
       const form = new FormData();
       form.append("key", this.key);
@@ -121,6 +174,7 @@ export default {
         // eslint-disable-next-line
         console.log(err);
       } finally {
+        this.isDecoding = false;
         // eslint-disable-next-line
         console.log("done");
       }

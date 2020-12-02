@@ -84,7 +84,7 @@
     <div id="imgDiv">
       <div id="errMsg" v-if="errMsg.length">{{ errMsg }}</div>
       <div>
-        <img src="../assets/images/spinner-icon-gif-24.gif" v-if="isEncoding" />
+        <!-- <img src="../assets/images/spinner-icon-gif-24.gif" v-if="isEncoding" /> -->
         <img
           name="outputImg"
           id="outputImg"

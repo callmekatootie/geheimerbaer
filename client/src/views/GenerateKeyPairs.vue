@@ -1,35 +1,96 @@
 <template>
-  <div id="pageBody" class="clearfix">
-    <div id="formDiv">
-      <form @submit.prevent="generateKey">
-        <fieldset>
-          <div class="formRow">
-            <div>
-              <label for="pubKey">pubKey: </label>
-              <input
-                type="text"
-                name="pubKey"
-                id="pubKey"
-                class="inputBoxes"
-                v-model="publicKey"
-              />
+  <div class="container">
+    <div class="columns">
+      <div class="column"></div>
+    </div>
+    <div class="columns">
+      <div class="column is-one-quarter"></div>
+      <div class="column is-half">
+        <h3 class="title">Generate Keypairs</h3>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-one-quarter"></div>
+      <div class="column is-half">
+        <form @submit.prevent="generateKey">
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label for="pubKey" class="label">Public Key</label>
             </div>
-            <div>
-              <label for="priKey">priKey: </label>
-              <input
-                type="text"
-                name="priKey"
-                id="priKey"
-                class="inputBoxes"
-                v-model="privateKey"
-              />
-            </div>
-            <div>
-              <input type="submit" value="generate keys" />
+            <div class="field-body">
+              <div class="field has-addons">
+                <div class="control is-expanded">
+                  <input
+                    type="text"
+                    name="pubKey"
+                    id="pubKey"
+                    class="input"
+                    v-model="publicKey"
+                    disabled
+                  />
+                </div>
+                <p class="control">
+                  <a class="button is-light">
+                    <span class="icon is-small">
+                      <img
+                        src="@/assets/images/icons/copy.svg"
+                        alt="copy"
+                        width="16"
+                        height="16"
+                      />
+                    </span>
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
-        </fieldset>
-      </form>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label for="priKey" class="label">Private Key</label>
+            </div>
+            <div class="field-body">
+              <div class="field has-addons">
+                <div class="control is-expanded">
+                  <input
+                    type="text"
+                    name="priKey"
+                    id="priKey"
+                    class="input"
+                    v-model="privateKey"
+                    disabled
+                  />
+                </div>
+                <p class="control">
+                  <a class="button is-light">
+                    <span class="icon is-small">
+                      <img
+                        src="@/assets/images/icons/copy.svg"
+                        alt="copy"
+                        width="16"
+                        height="16"
+                      />
+                    </span>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="field is-horizontal">
+            <div class="field-label"></div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input
+                    type="submit"
+                    value="Generate keys"
+                    class="button is-warning"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>

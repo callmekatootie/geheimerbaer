@@ -1,33 +1,33 @@
 <template>
   <div>
-    <div class="clearfix">
-      <div class="navItem">
-        <span>
-          <router-link to="/encode-symmetric">Encode Symmetric</router-link>
-        </span>
+    <nav class="navbar is-dark">
+      <div class="container">
+        <div class="navbar-brand">
+          <router-link class="navbar-item" to="/">Geheimerbaer</router-link>
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-start">
+            <router-link class="navbar-item" to="/encode-symmetric">
+              Encode Symmetric
+            </router-link>
+            <router-link class="navbar-item" to="/decode-symmetric">
+              Decode Symmetric
+            </router-link>
+            <router-link class="navbar-item" to="/encode-asymmetric">
+              Encode Asymmetric
+            </router-link>
+            <router-link class="navbar-item" to="/decode-asymmetric">
+              Decode Asymmetric
+            </router-link>
+            <router-link class="navbar-item" to="/generate-keypairs">
+              Generate Keypairs
+            </router-link>
+          </div>
+        </div>
       </div>
-      <div class="navItem">
-        <span>
-          <router-link to="/decode-symmetric">Decode Symmetric</router-link>
-        </span>
-      </div>
-      <div class="navItem">
-        <span>
-          <router-link to="/encode-asymmetric">Encode Asymmetric</router-link>
-        </span>
-      </div>
-      <div class="navItem">
-        <span>
-          <router-link to="/decode-asymmetric">Decode Asymmetric</router-link>
-        </span>
-      </div>
-      <div class="navItem">
-        <span>
-          <router-link to="/generate-keypairs">Generate Keypairs</router-link>
-        </span>
-      </div>
-    </div>
-    <hr class="clearfix" />
-    <router-view />
+    </nav>
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>

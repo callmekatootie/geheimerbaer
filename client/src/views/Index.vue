@@ -1,6 +1,10 @@
 <template>
-  <div id="pageBody" class="clearfix">
-    <h1>Geheimerbaer</h1>
-    <p>Welcome to Geheimerbaer</p>
-  </div>
+  <section class="hero is-light is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="container">
+        <p class="title has-text-centered	">Geheimerbaer</p>
+        <p class="subtitle has-text-centered	">Welcome to Geheimerbaer</p>
+      </div>
+    </div>
+  </section>
 </template>
