@@ -18,7 +18,7 @@
             <div class="field-body">
               <div class="field has-addons">
                 <p class="control">
-                  <a class="button is-light">
+                  <a class="button is-light" @click="copyToClipboard('key')">
                     <span class="icon is-small">
                       <img
                         src="@/assets/images/icons/copy.svg"
@@ -60,7 +60,7 @@
             <div class="field-body">
               <div class="field has-addons">
                 <p class="control">
-                  <a class="button is-light">
+                  <a class="button is-light" @click="copyToClipboard('nonce')">
                     <span class="icon is-small">
                       <img
                         src="@/assets/images/icons/copy.svg"
@@ -283,6 +283,18 @@ export default {
     },
     setFile(e) {
       this.file = e.target.files[0];
+    },
+    async copyToClipboard(type) {
+      switch (type) {
+        case "key":
+          await navigator.clipboard.writeText(this.key);
+          break;
+        case "nonce":
+          await navigator.clipboard.writeText(this.nonce);
+          break;
+        default:
+          throw Error("Unknown type");
+      }
     }
   }
 };

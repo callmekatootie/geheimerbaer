@@ -30,7 +30,10 @@
                   />
                 </div>
                 <p class="control">
-                  <a class="button is-light">
+                  <a
+                    class="button is-light"
+                    @click.prevent="copyToClipboard('publicKey')"
+                  >
                     <span class="icon is-small">
                       <img
                         src="@/assets/images/icons/copy.svg"
@@ -61,7 +64,10 @@
                   />
                 </div>
                 <p class="control">
-                  <a class="button is-light">
+                  <a
+                    class="button is-light"
+                    @click.prevent="copyToClipboard('privateKey')"
+                  >
                     <span class="icon is-small">
                       <img
                         src="@/assets/images/icons/copy.svg"
@@ -114,6 +120,18 @@ export default {
       this.privateKey = privateKey;
       // eslint-disable-next-line
       console.log(res.data);
+    },
+    async copyToClipboard(type) {
+      switch (type) {
+        case "publicKey":
+          await navigator.clipboard.writeText(this.publicKey);
+          break;
+        case "privateKey":
+          await navigator.clipboard.writeText(this.privateKey);
+          break;
+        default:
+          throw Error("Unknown type");
+      }
     }
   }
 };
